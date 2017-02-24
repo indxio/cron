@@ -17,8 +17,6 @@ $urls['btfx']['pairs']['xmr_usd'] = 'xmrusd';
 $urls['btfx']['pairs']['xmr_btc'] = 'xmrbtc';
 $urls['btfx']['base'] = 'https://api.bitfinex.com/v1/pubticker/';
 
-$urls['btrx']['pairs'] = array('blk_btc'=>'btc-blk','cann_btc'=>'btc-cann','ccn_btc'=>'btc-ccn','doge_btc'=>'btc-doge','drk_btc'=>'btc-dash','ltc_btc'=>'btc-ltc','myr_btc'=>'btc-myr','nxt_btc'=>'btc-nxt','pot_btc'=>'btc-pot','utc_btc'=>'btc-utc','via_btc'=>'btc-via');
-$urls['btrx']['base'] = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=';
 
 $urls['gdax']['pairs']['btc_usd'] = 'btc-usd';
 $urls['gdax']['pairs']['ltc_btc'] = 'ltc-btc';

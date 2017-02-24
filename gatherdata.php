@@ -17,68 +17,107 @@ function getData($url){
 };
 $query = 'INSERT INTO `current` VALUES';
 
-$btcc_data = getData('https://data.btcchina.com/data/ticker?market=all');
-echo '<hr>btcc<br>';
-foreach ($btcc_data as $key => $value) {
-  $pr = explode('_',$key);
-  $tpr = str_split($pr[1]);
-  $pair = $tpr[0].$tpr[1].$tpr[2].'_'.$tpr[3].$tpr[4].$tpr[5];
-  $val = $value['last'];
-  $vol = $value['vol'];
-  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
-  $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}
-if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+// $btcc_data = getData('https://data.btcchina.com/data/ticker?market=all');
+// echo '<hr>btcc<br>';
+// foreach ($btcc_data as $key => $value) {
+//   $pr = explode('_',$key);
+//   $tpr = str_split($pr[1]);
+//   $pair = $tpr[0].$tpr[1].$tpr[2].'_'.$tpr[3].$tpr[4].$tpr[5];
+//   $val = $value['last'];
+//   $vol = $value['vol'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
+// if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+//
+// $btce_data = getData('https://btc-e.com/api/3/ticker/btc_usd-btc_eur-ltc_usd-ltc_btc-nmc_usd-nmc_btc-nvc_usd-nvc_btc-eur_usd-ppc_usd-ppc_btc-dsh_btc-eth_btc-eth_usd-eth_ltc?ignore_invalid=1');
+// echo '<hr>btce<br>';
+// foreach ($btce_data as $key => $value) {
+//   $pair = $key;
+//   $val = $value['last'];
+//   $vol = $value['vol_cur'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"btce","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
+// if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+//
+// $cexo_data = getData('https://cex.io/api/tickers/USD/EUR/BTC');
+// echo '<hr>cexo<br>';
+// foreach ($cexo_data['data'] as $key => $value) {
+//   $tmp = explode(':',$cexo_data['data'][$key]['pair']);
+//   $pair = strtolower($tmp[0].'_'.$tmp[1]);
+//   $val = $cexo_data['data'][$key]['last'];
+//   $vol = $cexo_data['data'][$key]['volume'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"cexo","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
+// if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+//
+// $polx_data = getData('https://poloniex.com/public?command=returnTicker');
+// echo '<hr>polx<br>';
+// foreach($polx_data as $key => $value){
+//   $tpair = strtolower($key);
+//   $tmp = explode('_',$tpair);
+//   $pair = $tmp[1].'_'.$tmp[0];
+//   $val = $value['last'];
+//   $vol = $value['quoteVolume'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"polx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
+// if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+//
+// $btsp_pairs = array('btc_usd' => 'btcusd','btc_eur' => 'btceur','eur_usd' => 'eurusd','xrp_usd' => 'xrpusd','xrp_eur' => 'xrpeur','xrp_btc' => 'xrpbtc');
+// $btsp_url = 'https://www.bitstamp.net/api/v2/ticker/';
+// echo '<hr>btsp<br>';
+// foreach($btsp_pairs as $us => $them){
+//   $pair = $us;
+//   $tmpdata = getData($btsp_url.$them);
+//   $val = $tmpdata['last'];
+//   $vol = $tmpdata['volume'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"btsp","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
+// if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
 
-$btce_data = getData('https://btc-e.com/api/3/ticker/btc_usd-btc_eur-ltc_usd-ltc_btc-nmc_usd-nmc_btc-nvc_usd-nvc_btc-eur_usd-ppc_usd-ppc_btc-dsh_btc-eth_btc-eth_usd-eth_ltc?ignore_invalid=1');
-echo '<hr>btce<br>';
-foreach ($btce_data as $key => $value) {
-  $pair = $key;
-  $val = $value['last'];
-  $vol = $value['vol_cur'];
-  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
-  $query .= '(null,"btce","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}
-if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+// $btrx_pairs = array('blk_btc'=>'btc-blk','cann_btc'=>'btc-cann','ccn_btc'=>'btc-ccn','doge_btc'=>'btc-doge','drk_btc'=>'btc-dash','ltc_btc'=>'btc-ltc','myr_btc'=>'btc-myr','nxt_btc'=>'btc-nxt','pot_btc'=>'btc-pot','utc_btc'=>'btc-utc','via_btc'=>'btc-via');
+// $btrx_url = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=';
+// echo '<hr>btrx<br>';
+// foreach($btrx_pairs as $us => $them){
+//   $pair = $us;
+//   $tmpdata = getData($btrx_url.$them);
+//   $val = $tmpdata['result'][0]['Last'];
+//   $vol = $tmpdata['result'][0]['Volume'];
+//   if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+//   $query .= '(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+// }
 
-$cexo_data = getData('https://cex.io/api/tickers/USD/EUR/BTC');
-echo '<hr>cexo<br>';
-foreach ($cexo_data['data'] as $key => $value) {
-  $tmp = explode(':',$cexo_data['data'][$key]['pair']);
-  $pair = strtolower($tmp[0].'_'.$tmp[1]);
-  $val = $cexo_data['data'][$key]['last'];
-  $vol = $cexo_data['data'][$key]['volume'];
-  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
-  $query .= '(null,"cexo","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}
-if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
 
-$polx_data = getData('https://poloniex.com/public?command=returnTicker');
-echo '<hr>polx<br>';
-foreach($polx_data as $key => $value){
-  $tpair = strtolower($key);
-  $tmp = explode('_',$tpair);
-  $pair = $tmp[1].'_'.$tmp[0];
-  $val = $value['last'];
-  $vol = $value['quoteVolume'];
-  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
-  $query .= '(null,"polx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}
-if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
-
-$btsp_pairs = array('btc_usd' => 'btcusd','btc_eur' => 'btceur','eur_usd' => 'eurusd','xrp_usd' => 'xrpusd','xrp_eur' => 'xrpeur','xrp_btc' => 'xrpbtc');
-$btsp_url = 'https://www.bitstamp.net/api/v2/ticker/';
-echo '<hr>btsp<br>';
-foreach($btsp_pairs as $us => $them){
+$gmni_pairs = array('btc_usd'=>'btcusd','eth_usd'=>'ethusd','eth_btc'=>'ethbtc');
+$gmni_url = 'https://api.gemini.com/v1/pubticker/';
+echo '<hr>gmni<br>';
+foreach($gmni_pairs as $us => $them){
   $pair = $us;
-  $tmpdata = getData($btsp_url.$them);
+  $tmpdata = getData($gmni_url.$them);
   $val = $tmpdata['last'];
-  $vol = $tmpdata['volume'];
-  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
-  $query .= '(null,"btsp","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}
-if($debug == 1 || $debug == 2){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
+  $bs = explode('_',$pair);
+  switch ($bs[0]) {
+    case 'btc':
+      $vol = $tmpdata['volume']['BTC'];
+      break;
+    case 'eth':
+      $vol = $tmpdata['volume']['ETH'];
+      break;
 
+    default:
+      # code...
+      break;
+  }
+  if($debug == 2){echo $pair.'<br>value: '.$val.' <br>volume: '.$vol.' <br>timestamp: '.timeStamp().':00<hr>';}
+  $query .= '(null,"gmni","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+}
+
+
+if($debug == 1 ){ echo '<br>QUERY:<br>'.$query.'<hr>'; }
 $time_end = microtime(true);
 $time = $time_end - $time_start;
 
