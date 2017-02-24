@@ -1,14 +1,6 @@
 <?php
 
 
-$urls['btsp']['base'] = 'https://www.bitstamp.net/api/v2/ticker/';
-$urls['btsp']['pairs']['btc_usd'] = 'btcusd';
-$urls['btsp']['pairs']['btc_eur'] = 'btceur';
-$urls['btsp']['pairs']['eur_usd'] = 'eurusd';
-$urls['btsp']['pairs']['xrp_usd'] = 'xrpusd';
-$urls['btsp']['pairs']['xrp_eur'] = 'xrpeur';
-$urls['btsp']['pairs']['xrp_btc'] = 'xrpbtc';
-
 
 $urls['btfx']['pairs']['btc_usd'] = 'btcusd';
 $urls['btfx']['pairs']['ltc_usd'] = 'ltcusd';
