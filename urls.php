@@ -1,7 +1,5 @@
 <?php
 
-$urls['cexo'] = 'https://cex.io/api/tickers/USD/EUR/BTC';
-$urls['polx'] = 'https://poloniex.com/public?command=returnTicker';
 
 $urls['btsp']['base'] = 'https://www.bitstamp.net/api/v2/ticker/';
 $urls['btsp']['pairs']['btc_usd'] = 'btcusd';
