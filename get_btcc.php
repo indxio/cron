@@ -19,13 +19,19 @@ function getData($url){
 };
 echo '<hr>BTCC Started<hr>';
 $btcc_data = getData('https://data.btcchina.com/data/ticker?market=all');
+$bcount = Object.keys($btcc_data).length;
+$btrack = 0;
 foreach ($btcc_data as $key => $value) {
   $pr = explode('_',$key);
   $tpr = str_split($pr[1]);
   $pair = $tpr[0].$tpr[1].$tpr[2].'_'.$tpr[3].$tpr[4].$tpr[5];
   $val = $value['last'];
   $vol = $value['vol'];
-  $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+  if($btrack < $bcount){
+    $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
+  }else{
+    $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  }
 }
 echo '<br>QUERY:<br>'.$query.'<hr>';
 $con = new mysqli($host,$user,$pass,$db);
