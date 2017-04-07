@@ -1,5 +1,4 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -24,17 +23,11 @@ $gdax_pairs = array('btc_usd' => 'btc-usd','ltc_btc' => 'ltc-btc','ltc_usd' => '
 $gdax_url = 'https://api.gdax.com/products/';
 foreach($gdax_pairs as $us => $them){
   $tmpdata = getData($gdax_url.$them.'/ticker');
-  $bcount = count($tmpdata);
-$btrack = 1;
   $pair = $us;
   $val = $tmpdata['price'];
   $vol = $tmpdata['volume'];
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"gdax","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"gdax","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
-}
+  $query = 'INSERT INTO `current` VALUES(null,"gdax","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+
 echo '<br>QUERY:<br>'.$query.'<hr>';
 
 $con->query($query);
