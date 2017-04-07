@@ -22,7 +22,7 @@ foreach($btrx_pairs as $us => $them){
   $tmpdata = getData($btrx_url.$them);
   $val = $tmpdata['result'][0]['Last'];
   $vol = $tmpdata['result'][0]['Volume'];
-  $query .= 'INSERT INTO `current` VALUES(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  $query = 'INSERT INTO `current` VALUES(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
   echo '<br>QUERY:<br>'.$query.'<hr>';
   $con->query($query);
 }
