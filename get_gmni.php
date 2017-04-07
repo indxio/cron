@@ -1,5 +1,5 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
+$query = '';
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -23,8 +23,6 @@ $gmni_url = 'https://api.gemini.com/v1/pubticker/';
 foreach($gmni_pairs as $us => $them){
   $pair = $us;
   $tmpdata = getData($gmni_url.$them);
-  $bcount = count($tmpdata);
-$btrack = 1;
   $val = $tmpdata['last'];
   $bs = explode('_',$pair);
   switch ($bs[0]) {
@@ -37,18 +35,10 @@ $btrack = 1;
     default:
       break;
   }
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"gmni","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"gmni","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  $query = 'INSERT INTO `current` VALUES(null,"gmni","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  echo '<br>QUERY:<br>'.$query.'<hr>';
+  $con->query($query);
 }
-echo '<br>QUERY:<br>'.$query.'<hr>';
-
-$con->query($query);
-
-}
-
 $con->close();
 $time = microtime(true) - $time_start;
 echo '<hr>Script completed in '.$time.' seconds<hr>';
