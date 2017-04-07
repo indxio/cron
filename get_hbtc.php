@@ -1,5 +1,4 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -17,6 +16,7 @@ function getData($url){
   $data = json_decode($response,true);
   return $data;
 };
+$con = new mysqli($host,$user,$pass,$db);
 echo '<hr>HBTC Started<hr>';
 $hbtc_pairs =array('doge_btc'=>'DOGEBTC','ltc_btc'=>'LTCBTC','btc_usd'=>'BTCUSD',
   'ltc_usd'=>'LTCUSD','btc_eur'=>'BTCEUR','ltc_eur'=>'LTCEUR');
@@ -25,16 +25,9 @@ $btrack = 1;
 foreach($hbtc_pairs as $us => $them){
   $pair = $us;
   $tmpdata = getData($hbtc_url.$them.'/ticker');
-  $bcount = count($tmpdata);
-$btrack = 1;
   $val = $tmpdata['last'];
   $vol = $tmpdata['volume'];
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"hbtc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"hbtc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
-}
+  $query = 'INSERT INTO `current` VALUES(null,"hbtc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
 echo '<br>QUERY:<br>'.$query.'<hr>';
 
 $con->query($query);
