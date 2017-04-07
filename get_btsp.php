@@ -1,5 +1,5 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
+
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -24,16 +24,9 @@ $btsp_url = 'https://www.bitstamp.net/api/v2/ticker/';
 foreach($btsp_pairs as $us => $them){
   $pair = $us;
   $tmpdata = getData($btsp_url.$them);
-  $bcount = count($tmpdata);
-  $btrack = 1;
   $val = $tmpdata['last'];
   $vol = $tmpdata['volume'];
-  if($btrack < $bcount){
-    $btrack++;
-    $query .= '(null,"btsp","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-  }else{
-    $query .= '(null,"btsp","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
-  }
+  $query = 'INSERT INTO `current` VALUES(null,"btsp","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
   echo '<br>QUERY:<br>'.$query.'<hr>';
   $con->query($query);
 }
