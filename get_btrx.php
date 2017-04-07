@@ -1,12 +1,8 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
 $time_start = microtime(true);
-
 require 'creds.php';
 date_default_timezone_set("UTC");
-
 function timeStamp(){ return date('Y-m-d H:i'); };
-
 function getData($url){
   $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -26,16 +22,10 @@ foreach($btrx_pairs as $us => $them){
   $tmpdata = getData($btrx_url.$them);
   $val = $tmpdata['result'][0]['Last'];
   $vol = $tmpdata['result'][0]['Volume'];
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
-}
+  $query .= 'INSERT INTO `current` VALUES(null,"btrx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
   echo '<br>QUERY:<br>'.$query.'<hr>';
   $con->query($query);
 }
-
 $con->close();
 $time = microtime(true) - $time_start;
 echo '<hr>Script completed in '.$time.' seconds<hr>';
