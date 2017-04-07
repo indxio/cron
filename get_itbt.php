@@ -1,5 +1,5 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
+
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -17,24 +17,17 @@ function getData($url){
   $data = json_decode($response,true);
   return $data;
 };
+$con = new mysqli($host,$user,$pass,$db);
 echo '<hr>ITBT Started<hr>';
 $itbt_pairs = array('btc_usd' => 'XBTUSD', 'btc_eur' => 'XBTEUR');
 $itbt_url = 'https://api.itbit.com/v1/markets/';
 foreach($itbt_pairs as $us => $them){
   $tmpdata = getData($itbt_url.$them.'/ticker');
-  $bcount = count($tmpdata);
-$btrack = 1;
   $pair = $us;
   $val = $tmpdata['lastPrice'];
   $vol = $tmpdata['volume24h'];
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"itbt","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"itbt","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
-}
+  $query = 'INSERT INTO `current` VALUES(null,"itbt","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
 echo '<br>QUERY:<br>'.$query.'<hr>';
-
 $con->query($query);
 }
 $con->close();
