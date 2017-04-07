@@ -1,12 +1,8 @@
 <?php
-$query = 'INSERT INTO `current` VALUES';
 $time_start = microtime(true);
-
 require 'creds.php';
 date_default_timezone_set("UTC");
-
 function timeStamp(){ return date('Y-m-d H:i'); };
-
 function getData($url){
   $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -25,23 +21,13 @@ $btfx_pairs = array('btc_usd' => 'btcusd','ltc_usd' => 'ltcusd','ltc_btc' => 'lt
   $btfx_url = 'https://api.bitfinex.com/v1/pubticker/';
 foreach ($btfx_pairs as $us => $them) {
   $tmpdata = getData($btfx_url.$them);
-  $bcount = count($tmpdata);
-$btrack = 1;
   $pair = $us;
   $val = $tmpdata['last_price'];
   $vol = $tmpdata['volume'];
-  if($btrack < $bcount){
-  $btrack++;
-  $query .= '(null,"btfx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
-}else{
-  $query .= '(null,"btfx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  $query = 'INSERT INTO `current` VALUES(null,"btfx","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
+  echo '<br>QUERY:<br>'.$query.'<hr>';
+  $con->query($query);
 }
-echo '<br>QUERY:<br>'.$query.'<hr>';
-
-$con->query($query);
-
-}
-
 $con->close();
 $time = microtime(true) - $time_start;
 echo '<hr>Script completed in '.$time.' seconds<hr>';
