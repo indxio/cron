@@ -1,5 +1,4 @@
 <?php
-$query = '';
 $time_start = microtime(true);
 
 require 'creds.php';
@@ -17,6 +16,7 @@ function getData($url){
   $data = json_decode($response,true);
   return $data;
 };
+$con = new mysqli($host,$user,$pass,$db);
 echo '<hr>GMNI Started<hr>';
 $gmni_pairs = array('btc_usd'=>'btcusd','eth_usd'=>'ethusd','eth_btc'=>'ethbtc');
 $gmni_url = 'https://api.gemini.com/v1/pubticker/';
