@@ -20,7 +20,6 @@ function getData($url){
 echo '<hr>BTCC Started<hr>';
 $btcc_data = getData('https://data.btcchina.com/data/ticker?market=all');
 $bcount = count($btcc_data);
-echo 'Count is: '+$bcount;
 $btrack = 1;
 foreach ($btcc_data as $key => $value) {
   $pr = explode('_',$key);
