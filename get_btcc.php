@@ -19,7 +19,8 @@ function getData($url){
 };
 echo '<hr>BTCC Started<hr>';
 $btcc_data = getData('https://data.btcchina.com/data/ticker?market=all');
-$bcount = $btcc_data.length;
+$bcount = $btcc_data.count();
+echo 'Count is: '+$bcount;
 $btrack = 0;
 foreach ($btcc_data as $key => $value) {
   $pr = explode('_',$key);
@@ -28,6 +29,7 @@ foreach ($btcc_data as $key => $value) {
   $val = $value['last'];
   $vol = $value['vol'];
   if($btrack < $bcount){
+    $btrack++;
     $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00"),';
   }else{
     $query .= '(null,"btcc","'.$pair.'",'.$val.','.$vol.',"'.timeStamp().':00")';
