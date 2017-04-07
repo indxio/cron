@@ -17,3 +17,4 @@ function getData($url){
   $data = json_decode($response,true);
   return $data;
 };
+?>
