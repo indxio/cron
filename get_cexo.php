@@ -19,7 +19,7 @@ function getData($url){
 };
 echo '<hr>CEXO Started<hr>';
 $cexo_data = getData('https://cex.io/api/tickers/USD/EUR/BTC');
-$bcount = count($cexo_data);
+$bcount = count($cexo_data['data']);
 $btrack = 1;
 foreach ($cexo_data['data'] as $key => $value) {
   $tmp = explode(':',$cexo_data['data'][$key]['pair']);
