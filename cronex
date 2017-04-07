@@ -1,0 +1,1 @@
+/usr/bin/php5 /home/snomofomo/indxcron/get_polx.php > /home/snomofomo/public_html/indxlogs/$(date +'polx_log_%F_%T').html
