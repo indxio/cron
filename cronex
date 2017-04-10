@@ -1,1 +1,15 @@
-/usr/bin/php5 /home/snomofomo/indxcron/get_polx.php > /home/snomofomo/public_html/indxlogs/$(date +'polx_log_%F_%T').html
+#!/bin/bash
+
+/usr/local/bin/php /home/snomofomo/indxcron/get_btce.php > /home/snomofomo/public_html/indxlogs/$(date +"btce_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_btfx.php > /home/snomofomo/public_html/indxlogs/$(date +"btfx_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_btrx.php > /home/snomofomo/public_html/indxlogs/$(date +"btrx_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_btsp.php > /home/snomofomo/public_html/indxlogs/$(date +"btsp_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_cexo.php > /home/snomofomo/public_html/indxlogs/$(date +"cexo_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_gdax.php > /home/snomofomo/public_html/indxlogs/$(date +"gdax_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_gmni.php > /home/snomofomo/public_html/indxlogs/$(date +"gmni_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_hbtc.php > /home/snomofomo/public_html/indxlogs/$(date +"hbtc_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_itbt.php > /home/snomofomo/public_html/indxlogs/$(date +"itbt_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_krkn.php > /home/snomofomo/public_html/indxlogs/$(date +"krkn_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_okcn.php > /home/snomofomo/public_html/indxlogs/$(date +"okcn_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/get_polx.php > /home/snomofomo/public_html/indxlogs/$(date +"polx_log_%F_%T").html 2>&1
+/usr/local/bin/php /home/snomofomo/indxcron/gendex.php > /home/snomofomo/public_html/indxlogs/$(date +"00_gendex_log_%F_%T").html 2>&1
