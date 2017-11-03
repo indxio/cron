@@ -1,6 +1,5 @@
 #!/bin/bash
 
-/usr/local/bin/php /home/snomofomo/indxcron/get_btce.php > /home/snomofomo/public_html/indxlogs/$(date +"btce_log_%F_%T").html 2>&1
 /usr/local/bin/php /home/snomofomo/indxcron/get_btfx.php > /home/snomofomo/public_html/indxlogs/$(date +"btfx_log_%F_%T").html 2>&1
 /usr/local/bin/php /home/snomofomo/indxcron/get_btrx.php > /home/snomofomo/public_html/indxlogs/$(date +"btrx_log_%F_%T").html 2>&1
 /usr/local/bin/php /home/snomofomo/indxcron/get_btsp.php > /home/snomofomo/public_html/indxlogs/$(date +"btsp_log_%F_%T").html 2>&1
